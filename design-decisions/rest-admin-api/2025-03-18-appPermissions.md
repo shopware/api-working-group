@@ -37,7 +37,7 @@ Fetch the set of accepted permissions for the current integration. Requires admi
     "openapi": "3.1.0",
     "info": [],
     "paths": {
-        "/api/app-system/privileges/requested": {
+        "/app-system/privileges/requested": {
             "get": {
                 "tags": ["App System"],
                 "summary": "Get requested privileges",
@@ -99,7 +99,7 @@ Fetch the set of accepted permissions for the current integration. Requires admi
                 }
             }
         },
-        "/api/app-system/privileges/accepted" : {
+        "/app-system/privileges/accepted" : {
             "get": {
                 "tags": ["App System"],
                 "summary": "Get the accepted privileges for the current app integration",
@@ -156,7 +156,7 @@ Fetch the set of accepted permissions for the current integration. Requires admi
                 }
             }
         },
-        "/api/app-system/{appName}/privileges/accept": {
+        "/app-system/{appName}/privileges/accept": {
             "post": {
                 "tags": ["App System"],
                 "summary": "Accept privileges for an app",
