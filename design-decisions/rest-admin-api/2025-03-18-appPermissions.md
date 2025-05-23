@@ -63,233 +63,54 @@ Fetch the set of accepted permissions for the current integration. Requires admi
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "requestedPrivileges": {
+                    "privileges": {
                       "type": "object",
                       "additionalProperties": {
-                        "type": "object",
-                        "additionalProperties": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "extensions": {
-                                "type": "array",
-                                "items": {}
-                              },
-                              "entity": {
-                                "type": "string"
-                              },
-                              "operation": {
-                                "type": "string"
-                              }
-                            }
-                          }
+                        "type": "array",
+                        "items": {
+                          "type": "string"
                         }
                       }
                     }
                   }
                 },
                 "example": {
-                  "requestedPrivileges": {
-                    "SwagAnalytics": {
-                      "media": [
-                        {
-                          "extensions": [],
-                          "entity": "media",
-                          "operation": "read"
-                        }
-                      ],
-                      "settings": [
-                        {
-                          "extensions": [],
-                          "entity": "state_machine",
-                          "operation": "read"
-                        },
-                        {
-                          "extensions": [],
-                          "entity": "state_machine_state",
-                          "operation": "read"
-                        }
-                      ]
-                    }
+                  "privileges": {
+                    "SwagAnalytics": ["customer:read", "order:read"],
+                    "SwagExample": ["product:write"]
                   }
                 }
               }
             }
-          },
-          "401": {
-            "description": "Unauthorized Access."
-          },
-          "403": {
-            "description": "Forbidden. Insufficient permissions."
           }
         }
       }
     },
     "/app-system/{appName}/privileges/accepted": {
       "get": {
-        "tags": [
-          "App System"
-        ],
-        "summary": "Get the accepted privileges for the current app integration",
-        "description": "Returns the list of accepted privileges for the current app integration.",
-        "operationId": "getAcceptedPrivileges",
-        "parameters": [
-          {
-            "name": "appName",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "security": [
-          {
-            "oAuth": [
-              "admin"
-            ]
-          }
-        ],
         "responses": {
           "200": {
-            "description": "A JSON object containing accepted privileges.",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "acceptedPrivileges": {
+                    "privileges": {
                       "type": "object",
                       "additionalProperties": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "extensions": {
-                              "type": "array",
-                              "items": {}
-                            },
-                            "entity": {
-                              "type": "string"
-                            },
-                            "operation": {
-                              "type": "string"
-                            }
-                          }
-                        }
+                        "type": "boolean"
                       }
                     }
                   }
                 },
                 "example": {
-                  "acceptedPrivileges": {
-                    "customer": [
-                      {
-                        "extensions": [],
-                        "entity": "customer",
-                        "operation": "read"
-                      },
-                      {
-                        "extensions": [],
-                        "entity": "customer_group",
-                        "operation": "read"
-                      }
-                    ],
-                    "order": [
-                      {
-                        "extensions": [],
-                        "entity": "order",
-                        "operation": "read"
-                      }
-                    ]
+                  "privileges": {
+                    "customer.read": true,
+                    "order.read": true
                   }
                 }
               }
             }
-          },
-          "401": {
-            "description": "Unauthorized Access."
-          },
-          "403": {
-            "description": "Forbidden. Not a valid integration source."
-          }
-        }
-      }
-    },
-    "/app-system/{appName}/privileges": {
-      "patch": {
-        "tags": [
-          "App System"
-        ],
-        "summary": "Manage privileges for an app",
-        "description": "Accepts or revokes specified privileges for the given app. Requires admin scope and `acl_role:update` permission.",
-        "operationId": "managePrivileges",
-        "security": [
-          {
-            "oAuth": [
-              "admin"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "name": "appName",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "accept": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "revoke": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  }
-                }
-              },
-              "example": {
-                "accept": [
-                  "customer:read",
-                  "order:read"
-                ],
-                "revoke": [
-                  "product:write"
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "204": {
-            "description": "Returns no content if privileges were managed successfully."
-          },
-          "400": {
-            "description": "Malformed request."
-          },
-          "401": {
-            "description": "Unauthorized Access."
-          },
-          "403": {
-            "description": "Forbidden. Insufficient permissions."
-          },
-          "404": {
-            "description": "App not found."
           }
         }
       }
