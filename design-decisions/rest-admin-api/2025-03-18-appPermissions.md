@@ -22,11 +22,11 @@ On the other hand the app backend needs to know which permissions it has so it c
 
 Fetch the set of requested permissions. It retrieves all requested permissions for all apps. Requires admin scope and `acl_role:read` permission to read. 
 
-*/api/app-system/{appName}/privileges/accept* 
+*/api/app-system/{appName}/privileges*
 
-Accept a set of permissions for the specified app name. Requires admin scope and `acl_role:update` permission to write.
+Update the set of accepted permissions for a specific app. This endpoint allows the admin to approve or revoke requested permissions for a specific app. It requires admin scope and `acl_role:update` permission to write.
 
-*/api/app-system/privileges/accepted*
+*/api/app-system/{appName}/privileges/accepted*
 
 Fetch the set of accepted permissions for the current integration. Requires admin scope with an integration.
 
